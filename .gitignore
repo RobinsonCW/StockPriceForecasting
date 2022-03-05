@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ignore data files too large for repo
+*.csv
+*.json
+*.zip
+*.h5
+*.png
