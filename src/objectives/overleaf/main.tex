@@ -1,10 +1,13 @@
 \documentclass{llncs}
+\usepackage{hyperref}
 \title{Stock Price Forecasting with Time Series and Sentiment Analysis}
-\author{Chance Robinson$^1$, Nnenna Okpara$^2$, Michael Burgess$^3$}
+\author{Chance Robinson$^1$, Nnenna Okpara$^2$, Michael Burgess$^3$, \\ Biven Sadler$^4$, Faizan Javed$^5$}
 \institute{$^1$Master of Science in Data Science \\ Southern Methodist University \\ Dallas, Texas USA \\
 \{\email{chance},
 \email{nokpara},
-\email{mwburgess}\}@smu.edu}
+\email{mwburgess},
+\email{bsadler},
+\email{fjaved}\}@smu.edu}
 
 
 
@@ -13,90 +16,82 @@
 \maketitle
 
 \begin{abstract}
-This paper seeks to explore the use of traditional time-series based methods for prediction of future stock prices and combine them with sentiment signals that might be available in social media and other web content. For example, tweets for a particular company or ticker and news headlines from financial sources such as the Wall Street Journal, Reuters, etc.... Our scope will be limited to 10 of the largest stocks in the NASDAQ Composite index. One way in which we hope to contribute to the research that has already been done in this domain is to leverage resources that allow you to analyze current day price and news feeds and utilize an online inference mechanism to make near real-time predictions. We hope to prove that the ability to act on new information as it happens can contribute to a better performance and more accurate predictive model.
+This research paper seeks to explore the use of traditional time-series based methods for prediction of future stock prices and combine them with sentiment signals that might be available in social media and other web content. For example, tweets for a particular company or ticker and news headlines from financial sources such as the Wall Street Journal, Reuters, etc.... The study will be limited to 10 of the largest stocks in the NASDAQ Composite index.  One way to contribute to the research that has already been done in this domain is to leverage resources that allow for the analysis of current day pricing and news feeds and also utilize an online inference mechanism to make near real-time predictions. This paper will look to prove that the ability to act on new information as it happens can contribute to a better performing and more accurate predictive model.
 \end{abstract}
 
 
 \section{Introduction}
 
-Stock Markets have been a cornerstone of personal investments for many Americans for over a century now. The market capitalization of domestic companies in the U.S. is over \$40 trillion dollars as of 2020 according to the World Bank.
+Stock Markets have been a cornerstone of personal investments for many Americans for over a century now. The market capitalization of domestic companies in the U.S. is over \$40 trillion dollars as of 2020 according to the World Bank.\footnote{https://en.Wikipedia.org/wiki/List\_of\_countries\_by\_stock\_market\_capitalization}
 
-A Gallup poll conducted in August 2021 found that that 56\% of Americans own stock, which was consistent with prior measures taken in 2019 and 2020. This is slightly less that the levels that preceded the 2008 financial crisis. However, with inflation hitting levels not seen since the 1980s, many are looking at the market to hedge against inflation. And with the volatility of cryptocurrencies, traditional stock indexes may be primed to expand in the coming months.
+A Gallup poll conducted in August 2021 found that that 56\% of Americans own stock, which was consistent with prior measures taken in 2019 and 2020. This is slightly less that the levels that preceded the 2008 financial crisis.\footnote{https://news.gallup.com/poll/266807/percentage-Americans-owns-stock.aspx}  However, with inflation hitting levels not seen since the 1980s, many are looking at the market to hedge against inflation. And with the volatility of crypto-currencies, traditional stock indexes may be primed to expand in the coming months.
 
 It is estimated that 55\% of all trades in U.S equity markets are algorithmic or high-frequency trades, which are executed by computer programs. Traditional day-traders may be at a disadvantage if not looking beyond the standard financial performance indicators and seeking to act on available information more quickly. Finding additional sources of “alpha”, or signal that can be attained from alternative sources of information, can provide investors an edge over other participants in the market. Being able to adapt to emerging market news or other external factors such as a natural disaster or geopolitical event could provide timely clues and allow investors to gain an edge, providing them the ability to make informed decisions to take up buy, sell or hold positions.
 
-This research paper will expand on the technique's others have already applied in the field regarding the use of deep neural networks combined with natural language processing methods. We hope to also provide some insights into making use of cloud services for “just-in-time” predictions which may prove to be advantages depending on how quickly markets react to the news.
+Historically, analysts with a background in the financial domain could glean insights from corporate earnings statements, cash flows and balance sheets which could then be used in their trading strategies.  But with the advent of the internet and more recently social media, the speed at which information is made available and processed is becoming an important factor in being able to act on that signal in a timely manner.  Advances in Natural Language Processing (NLP) have provided a means to quickly assess the mood or sentiment of a text-based artifact, be it the more traditional corporate ones or social media platforms that have only been around since the turn of the century.  The landscape for some of these newer NLP techniques is rapidly evolving and a method or framework that may have been state-of-the-art 5 to 10 years ago may no longer be the favored approach today.
 
+This research paper will expand on the technique's others have already applied in the field regarding the use of deep neural networks combined with natural language processing methods. This paper will also explore some insights on the usage of cloud services for “just-in-time” predictions which may prove to be advantages depending on how quickly markets react to the news.
 
 \section{Literature Review}
 
-\subsection{Stock  price  forecasting  model  based  on  modified  con-volution neural network and financial time series analysis}
+Several authors have explored possible models for predicting both time series data as a whole and more specifically stock prices. Although there have been attempts to make these predictions with less advanced models such as Naive Bayes and Support Vector Machines, current research suggests that more advanced Neural Network models such as Long Short-Term Memory perform significantly better for these prediction tasks. Further, there have been some attempts to add sentiment or emotional data to these models and adding this content has been shown to improve model performance.
 
-According to Cao and Wang (2019) [1] study, a stock market prediction model was conducted using convolution neural network (deep learning algorithm) and financial time series data. The convolution neutral network (CNN) parameters included the number of convolution layers, the size of down sampling layers, convolution kernels sizes/numbers and samples length. The combination of convolution neural network (CNN) and financial time series analysis were effective to forecast stock market index.
+Cao and Wang (2019) [\ref{ref_article1}] explored the idea of transforming historical time series data to explore the stock market pattern. The authors proposed a stock market prediction model using convolution neural network (deep learning algorithm) and financial time series data. The convolution neutral network (CNN) parameters included the number of convolution layers, the size of down sampling layers, convolution kernels sizes/numbers and samples length. The authors concluded that the combination of convolution neural network (CNN) and financial time series analysis were effective to forecast stock market index.
 
+Jansen, S., author. (2020) [\ref{ref_article2}].  This book offers a unique perspective on both Machine Learning and trading.  It starts by covering some of the core concepts behind market behavior and expands into how to utilize cutting edge techniques from the field of machine learning to gain additional signal from non-traditional sources of financial related data.
 
-\subsection{Machine  Learning  for  Algorithmic  Trading}
+Ko, C., Chang, H. (2021) [\ref{ref_article3}] found that their methods produced a 12.05 accuracy improvement, which entailed the use of BERT for sentiment analysis, and an LSTM neural network for analyzing and processing time series data. The improvement was compared to what they defined as LSTMP, which only included the financial data from the study, and no NLP techniques. [Opening price, Closing price, Highest price, Lowest price and Volume] They used a 20-day sliding window to predict the 21st observation across their data. Their sentiment analysis came from both news stock-oriented forums and news articles scraped from the web.
 
-Jansen, S., author. (2020). [2] Offers a unique perspective on both Machine Learning and trading. Starts by covering some of the core concepts behind market behavior and expands into how to utilize cutting edge techniques from the field of ML to gain additional signal from non-traditional sources of financial related data.
+Liapis, Karanikola, and Kotsiantis (2021) [\ref{ref_article4}] sought to explore the use of sentiment analysis in multivariate time series forecasting for stock prices. Using the Twitter Intelligence Tool (TWINT) they scraped Twitter for tweets related to specific stocks and grouped them by day. The data were pre-processed using Re and sentiment scores were created by using TextBlob, Vader, and FinBERT. The authors found that for predicting prices over a single day traditional univariate analysis performed best, but that for seven and fourteen day forecasts a Long Short-Term Memory network (LSTM) with FinBERT sentiment analysis outperformed the traditional models.
 
-\subsection{LSTM-based sentiment analysis for stock price forecast}
-Ko, C., Chang, H. (2021). [3] found that their methods produced a 12.05 accuracy improvement, which entailed the use of BERT for sentiment analysis, and an LSTM neural network for analyzing and processing time series data. The improvement was compared to what they defined as LSTMP, which only included the financial data from the study, and no NLP techniques. [Opening price, Closing price, Highest price, Lowest price and Volume] They used a 20-day sliding window to predict the 21st observation across their data. Their sentiment analysis came from both news stock-oriented forums and news articles scraped from the web.
+Mehta, Pandya and Kotecha (2021) [\ref{ref_article5}] conducted research on stock market prediction incorporating social media sentiment analysis using a deep learning approach. The deep learning methods used for the research were Support Vector Machine, Naïve Bayes, linear regression, MNB classifier and Long Short-Term Memory. The authors incorporated news data, public sentiments, and historical stock prices with stock trend prices. The authors concluded that there was a relationship between news and the stock market because a positive news correlates high market values while a negative news correlates with low market values.
 
-\subsection{A Multi-Method Survey onthe Use of Sentiment Analysis in Multivariate Financial Time Series Forecasting}
+Nguyen, Shirai and Velcin (2015) [\ref{ref_article6}] used a novel approach to consolidate the sentiments in social media for the prediction of stock price movement. This study used Support Vector Machine (SVM) to systematically evaluate the effectiveness of sentiment analysis from social media (message boards). Some of the models incorporated in the study were historical prices, human sentiment, sentiment classification, LDA-based method, JST-based method, and Aspect-based sentiment.  The authors concluded that the Aspect-based sentiment was a better method in predicting over 18 stock prices with an average accuracy of 54.4%.
 
-Liapis, Karanikola, and Kotsiantis (2021) [4] sought to explore the use of sentiment analysis in multivariate time series forecasting for stock prices. Using the Twitter Intelligence Tool (TWINT) they scraped Twitter for tweets related to specific stocks and grouped them by day. The data were pre-processed using Re and sentiment scores were created by using TextBlob, Vader, and FinBERT. The authors found that for predicting prices over a single day traditional univariate analysis performed best, but that for seven and fourteen day forecasts a Long Short-Term Memory network (LSTM) with FinBERT sentiment analysis outperformed the traditional models.
+Kordonis et al.(2016) [\ref{ref_article7}] explored using sentiment analysis on data collected from the Twitter Search API to predict stock prices. Unlike later authors, they used Naïve Bayes and Support Vector Machine (SVM) models to perform both the sentiment analysis on the data that they collected from the Twitter Search API and the price predictions. They found that the SVM model performed better for sentiment classification and choose to use the SVM model as their classifier. After performing pre-processing and training their model on the sentiment data, they applied an SVM model to predict the future movements of the top 16 technology stocks according to Yahoo! Finance. They found that with the SVM model they were able to predict a stock’s price with an average accuracy of 87 percent and an error rate of less than 10 percent for the closing price of those stocks.  
 
-\subsection{Harvesting  social  media  sentimentanalysis to enhance stock market prediction using deep learning}
+Fischer and Krauss (2018) [\ref{ref_article8}] explored the difficulties of predicting time series data by applying the more advanced Long Short-Term Memory (LSTM) network model to the problem of predicting stock prices for the SP 500 for the years 1992 – 2015. The authors reported that they were able to use this model to generate daily returns of 0.46 percent and a Sharpe ratio of 5.8. They found that the LSTM model outperformed more traditional models including Random Forest, Deep Neural Net, and Logistic Regression. While the model outperformed the general market from 1992 to 2010, additional volatility in the market resulted in near 0 returns for 2010 to 2015. The authors explored additional causes of volatility and probability and were able to create a rules-based strategy that improved yields to 0.23 percent while reducing their exposure to risk when compared to the 3 other competing models that they tested.
 
-Mehta, Pandya and Kotecha (2021) [5] conducted research on stock market prediction incorporating social media sentiment analysis using deep learning approach. The deep learning methods used for the research were Support Vector Machine, Na¨ıve Bayes, linear regression, MNB classifier and Long Short-Term Memory. They incorporated news data, public sentiments, and historical stock prices with stock trend prices. They concluded that there was a relationship between the news and the stock market because positive news correlates high market values while negative news correlates with low market values.
+In their paper, Zhuge, Xu, and Zhang (2017) [\ref{ref_article9}] sought to create a new time series learning model for stock prediction. They divided the model into two parts: an internal space called Actual Behavior that used data from the way the stocks they examined behaved and an external space called Network Public Opinion that consisted of a Naïve Bayes emotional content model derived from forum message data from stock related posts on the Eastmoney forum dated between June 2, 2008, and June 5, 2015. The authors then fed this data into an LSTM time series model for predicting the stock prices. For the 6 stock tickers the authors looked at, they found that the model that included the emotional content data improved their Mean Squared Error performance by an average of 25.96 percent over a model that only used historical exchange data.
 
-\subsection{Sentiment analysis on social media for stock movement prediction. Expert Systems with Applications}
+Ranco, G., Aleksovski, D., Caldarelli, G., Grčar, M., \& Mozetič, I. (2015) [\ref{ref_article10}].  Analyzed a 15-month period from 2013 to 2014 of 30 stocks in the Dow Jones Industrial Average.  The team used Twitter volume and sentiment to find correlation with returns.  They found that there was a strong correlation with the volume peaks and that the polarity was statistically significant for the movement direction of a stock.  Various statistical techniques for measuring correlation were used such as Pearson's Correlation and Granger Causality tests.  External events such as corporate earnings were shown shown to affect pricing fluctuations in prior research, so the team set out to isolate known (EA) events from other peak Twitter activity trends (non-EA events) in an attempt to confirm their hypothesis that they too can influence stock movement trends.
 
-Nguyen, Shirai and Velcin (2015) [6] presented a novel approach to consolidate the sentiments in social media for the prediction of stock price movement. They used Support Vector Machine (SVM) to systematically evaluate the effectiveness of sentiment analysis from social media (message boards). Some of the models incorporated in this study were historical prices, human sentiment, sentiment classification, LDA-based method, JST-based method, and Aspect-based sentiment. They concluded that the Aspect-based sentiment was a better method in predicting over 18 stock prices with an average accuracy of 54.4.
+Jing, N., Wu, Z., \& Wang, H. (2021) [\ref{ref_article11}]  utilized a Convolutional Neural Network (CNN) model for sentiment analysis (SA) based on stock oriented online forums.  They then used an LSTM for the stock pricing components.  The hybrid approach was found to be better performing than any of the individual models or those without the SA text-based factors.  The paper focused on 30 stocks from multiple industries within the Shanghai Stock Exchange and created test data from a one-day forward observation of the given stock's closing price.  The performance  metric of choice was based on the Mean Absolute Percentage Error (MAPE) formula.  In their conclusion, the researchers state that other data sources could also be beneficial in future analysis, such as Twitter, Instagram or Snapchat. 
 
-\subsection{Stock  Price  Forecasting  via  Sentiment  Analysis  on  Twitter}
-
-Kordonis et.al (2016) [7] developed an approach to evaluate how tweets correlate with stock price trends using machine learning. They analyzed the tweets that were collected using Twitter’s search API and evaluated the effectiveness of Na¨ıve Bayes and SVM model for public sentiments. They also collected historical stock data using Yahoo finance API to predict the future of stock prices. From the research, it was concluded that changes in the public sentiments from tweets affect the stock market. There was a correlation between public sentiments from tweets and stock prices.
-
-
-\subsection{Deep Learning with Long-Short Term Memory Networks for Financial Market Predictions}
-
-Fischer and Krauss (2018) [8] applied a Long Short-Term Memory (LSTM) network to the problem of predicting stock prices for the S&P 500 for the years 1992 – 2015, reporting that they were able to use this model to generate daily returns of 0.46 percent and a Sharpe ratio of 5.8. They found that the LSTM model outperformed more traditional models including Random Forest, Deep Neural Net, and Logistic Regression. While the model outperformed the general market from 1992 to 2010, additional volatility in the market resulted in near 0 returns for 2010 to 2015. The authors explored additional causes of volatility and probability and were able to create a rules-based strategy that improved yields to 0.23 percent while reducing their exposure to risk when compared to the 3 other competing models.
-
-\subsection{LSTM Neural Network with Emotional Analysis for Prediction of Stock Price}
-
-In this paper, Zhuge, Xu, and Zhang (2017) [9] sought to create a new time series learning model for stock prediction. They divided the model into two parts, with the first consisting of a Naïve Bayes emotional content model derived from forum message data from stock related posts on the Eastmoney forum dated between June 2, 2008, and June 5, 2015. The authors then fed this emotional data into a LSTM time series model. They further divided the models into an external space called Network Public Opinion and internal space called Actual Behavior with 15 variables as input. For the 6 stock tickers the authors looked at, they found that the model that included emotional content data improved MSE performance by an average of 25.96 percent over a model that only used historical exchange data.
-
-
-\subsection{Theme}
-
-Traditional time-series methods may not be best suited to stock market data due to various other factors that go into the valuation of a given stock. Neural networks may be better equipped to infer complex relationships between different features of a data set, and when combined with other text-based data such as sentiment, this can be improved upon even further.
-
+Ho and Huang (2021) [\ref{ref_article12}] developed an approach for stock market prediction that integrates both candlestick chart data and sentiment data from social media. Predicting the stock market can be a challenging problem because of the different factors involved. The authors employed the mpl-finance module to create a candlestick chart with four features (the open, the high, the low and the close). The authors used five different stocks and historical time series data collected from Yahoo for a four-year period. The authors concluded that the use of sentiment social media data and candlestick charts are both effective in the prediction of stock market. The paper also suggests that stocks predicted over a longer period achieved a better result than a shorter period.
 
 \section{Methods}
 
 \subsection{Data}
 
-Our financial time series data will be collected mainly from the Alpha Vantage API, which provides a variety of services for both historical and current day price history. The daily adjusted service, for example, covers over 20 years of historical records for a given equity. As for the text-based Sentiment Analysis component, we will collect data from the Twitter API as well as other news aggregators that provide free access to historical news headlines.
+The financial time series data will be collected mainly from the Alpha Vantage API, which provides a variety of services for both historical and current day price history. The daily adjusted service, for example, covers over 20 years of historical records for a given equity.  It includes columns for the Open, High, Low, Close, Adjusted Close, Volume, Dividend Amount and Split Coefficients.
+\footnote{https://www.alphavantage.co/documentation/}
+
+
+As for the text-based Sentiment Analysis component, the team will collect data from the Twitter API as well as other news aggregators that provide access to both real-time and historical news headlines.  Benzinga is one such service that offers a Stock News API with multiple channels that cover areas such as fintech (or financial technology, payments and capital markets), regulations, rumors and news relating to headlines about the US. Government among others.  It is unique in that it creates the content in-house as opposed to relying on second-hand sources of news feeds that often rely on web-scraping techniques.
+\footnote{https://www.benzinga.com/apis/}
 
 \subsection{Techniques}
 
 Recent research in this area has applied deep neural networks to time series-based data using Long Short-Term Memory (LSTMs) recurrent neural networks.
 
-Sentiment Analysis is a sub-field of Natural Language Processing, and some of the more cutting-edge research in this area makes use of transfer learning, or more specifically transformer-based models such as BERT, which have been pretrained on huge corpora of text that can be further refined on a given domain.
+Sentiment Analysis is a sub-field of Natural Language Processing, and some of the more cutting-edge research in this area makes use of transfer learning, or more specifically transformer-based models such as BERT, which have been pre-trained on huge corpora of text that can be further refined on a given domain.
 
 FinBERT for example, is an extension of BERT specific to the financial domain.
-With the combination of these two methods, we hope to improve upon what one would be able to achieve by just using one or the other. Aristotle is quoting as having said that “the whole is greater than the sum of its parts”, and we hope to prove that applies here as well.
+With the combination of these two methods, the research team hopes to improve upon what one would be able to achieve by just using one or the other. Aristotle is quoting as having said that “the whole is greater than the sum of its parts”, and this study hopes to prove that applies here as well.
 
 
 \section{Results}
 
-In this research we hope to demonstrate that applying sentiment analysis to different time series models results in a marked improvement in performance over the base models. Historical research shows that both LSTM and Sentiment Analysis can greatly improve predictions and long-range forecasts for stock pricing, but we have not seen this analysis applied in real time as we are seeking to do.
+In this research, the goal is to demonstrate that applying sentiment analysis to different time series models results in a marked improvement in performance over the base models. Historical research shows that both LSTM and Sentiment Analysis can greatly improve predictions and long-range forecasts for stock pricing, but we have not seen this analysis applied in real time as we are seeking to do.
 
+
+\section{Discussions}
 
 \section{Conclusion}
 
-In conclusion, we hope to confirm our hypothesis that the sequential time series data provided by daily or even hourly stock market prices can be complimented with external sources of signal such as content from social media or financial news sites.
+
+In conclusion, the research team hopes to confirm the hypothesis that the sequential time series data provided by daily or even hourly stock market technical indicators can be complimented with external sources of signal such as content from social media or financial news sites.
 
 \section{Acknowledgments}
 
@@ -113,38 +108,58 @@ A special thanks to our research project advisors, Dr. Biven Sadler and Dr. Faiz
 % \bibliography{bibliography}
 %
 
+\newpage
+
 \begin{thebibliography}{8}
 
 \bibitem{ref_article1}
-Cao, J., & Wang, J. (2019). Stock price forecasting model based on modified convolution neural network and financial time series analysis. International Journal of Communication Systems, 32(12), e3987-n/a. 10.1002/dac.3987
+\label{ref_article1} 
+Cao, J., \& Wang, J. (2019). Stock price forecasting model based on modified convolution neural network and financial time series analysis. International Journal of Communication Systems, 32(12), e3987-n/a. 10.1002/dac.3987
 
-\bibitem{ref_book1}
+\bibitem{ref_article2}
+\label{ref_article2} 
 Jansen, S., author. (2020). Machine Learning for Algorithmic Trading - Second Edition. Packt Publishing.
 
-\bibitem{ref_article1}
-Ko, C., & Chang, H. (2021). LSTM-based sentiment analysis for stock price forecast. PeerJ.Computer Science; PeerJ Comput Sci, 7, e408. 10.7717/peerj-cs.408
+\bibitem{ref_article3}
+\label{ref_article3} 
+Ko, C., \& Chang, H. (2021). LSTM-based sentiment analysis for stock price forecast. PeerJ.Computer Science; PeerJ Comput Sci, 7, e408. 10.7717/peerj-cs.408
 
-\bibitem{ref_article1}
-Liapis, C. M., Karanikola, A., & Kotsiantis, S. (2021). A Multi-Method Survey on the Use of Sentiment Analysis in Multivariate Financial Time Series Forecasting. Entropy (Basel, Switzerland); Entropy (Basel), 23(12), 1603. 10.3390/e23121603
+\bibitem{ref_article4}
+\label{ref_article4} 
+Liapis, C. M., Karanikola, A., \& Kotsiantis, S. (2021). A Multi-Method Survey on the Use of Sentiment Analysis in Multivariate Financial Time Series Forecasting. Entropy (Basel, Switzerland); Entropy (Basel), 23(12), 1603. 10.3390/e23121603
 
-\bibitem{ref_article1}
-Mehta, P., Pandya, S., & Kotecha, K. (2021). Harvesting social media sentiment analysis to enhance stock market prediction using deep learning. PeerJ.Computer Science; PeerJ Comput Sci, 7, e476. 10.7717/peerj-cs.476
+\bibitem{ref_article5}
+\label{ref_article5} 
+Mehta, P., Pandya, S., \& Kotecha, K. (2021). Harvesting social media sentiment analysis to enhance stock market prediction using deep learning. PeerJ.Computer Science; PeerJ Comput Sci, 7, e476. 10.7717/peerj-cs.476
 
-\bibitem{ref_article1}
-Nguyen, T. H., Shirai, K., & Velcin, J. (2015). Sentiment analysis on social media for stock movement prediction. Expert Systems with Applications, 42(24), 9603-9611. 10.1016/j.eswa.2015.07.052
+\bibitem{ref_article6}
+\label{ref_article6} 
+Nguyen, T. H., Shirai, K., \& Velcin, J. (2015). Sentiment analysis on social media for stock movement prediction. Expert Systems with Applications, 42(24), 9603-9611. 10.1016/j.eswa.2015.07.052
 
-\bibitem{ref_article1}
-Stock Price Forecasting via Sentiment Analysis on Twitter (2016). . ACM. 10.1145/3003733
+\bibitem{ref_article7}
+\label{ref_article7} 
+Kordonis, J., Symeonidis, S., Arampatzis, A. (2016). Stock Price Forecasting via Sentiment Analysis on Twitter (2016). PCI ’16: Proceedings of the 20th Pan-Hellenic Conference on Informatics, Article 36, 1-6. 10.1145/3003733.3003787
 
-\bibitem{ref_article1}
-Fischer, T., & Krauss, C. (2018). Deep learning with long short-term memory networks for financial market predictions. European Journal of Operational Research, 270(2), 654-669. 10.1016/j.ejor.2017.11.054
+\bibitem{ref_article8}
+\label{ref_article8} 
+Fischer, T., \& Krauss, C. (2018). Deep learning with long short-term memory networks for financial market predictions. European Journal of Operational Research, 270(2), 654-669. 10.1016/j.ejor.2017.11.054
 
-\bibitem{ref_article1}
-Zhuge, Q., Xu, L., Zhang, G. (2017). LSTM Neural Network with Emotional Analysis for Prediction of Stock Price. Engineering Letters 25(2), 167-175. http://www.engineeringletters.com/issues_v25/issue_2/EL_25_2_09.pdf
+\bibitem{ref_article9}
+\label{ref_article9} 
+Zhuge, Q., Xu, L., Zhang, G. (2017). LSTM Neural Network with Emotional Analysis for Prediction of Stock Price. Engineering Letters 25(2), 167-175. http://www.engineeringletters.com/issues\_v25/issue\_2/EL\_25\_2\_09.pdf
+
+\bibitem{ref_article10}
+\label{ref_article10} 
+Ranco, G., Aleksovski, D., Caldarelli, G., Grčar, M., \& Mozetič, I. (2015). The Effects of Twitter Sentiment on Stock Price Returns. PloS One; PLoS One, 10(9), e0138441. 10.1371/journal.pone.0138441
+
+\bibitem{ref_article11}
+\label{ref_article11} 
+Jing, N., Wu, Z., \& Wang, H. (2021). A hybrid model integrating deep learning with investor sentiment analysis for stock price prediction. Expert Systems with Applications, 178, 115019. 10.1016/j.eswa.2021.115019
+
+\bibitem{ref_article12}
+\label{ref_article12}
+Ho, T., \& Huang, Y. (2021). Stock Price Movement Prediction Using Sentiment Analysis and CandleStick Chart Representation. Sensors (Basel, Switzerland), 21(23), 7957. 10.3390/s21237957
 
 
 \end{thebibliography}
-\end{document}
-
-
 \end{document}
