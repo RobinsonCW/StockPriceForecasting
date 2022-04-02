@@ -134,3 +134,6 @@ dmypy.json
 *.zip
 *.h5
 *.png
+
+# ignore all files in the data directory
+data/
