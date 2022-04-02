@@ -1,6 +1,6 @@
 # StockPriceForecasting
 
-Created by [Chance Robinson](https://github.com/RobinsonCW)
+Created by [Chance Robinson](https://github.com/RobinsonCW), [Nnenna Okpara](https://github.com/Nnenna5) and [Michael Burgess](https://github.com/MBurgess490)
 
 ## Purpose
 
