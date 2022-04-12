@@ -137,3 +137,6 @@ dmypy.json
 
 # ignore all files in the data directory
 data/
+
+# VS Code workspace
+*.code-workspace
